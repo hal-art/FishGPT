@@ -5,17 +5,9 @@ import sys
 #APIキーセット
 openai.api_key = config.API_KEY
 
-args = sys.argv
-
+# 質問保存変数
 global question
 global messageHistory
-
-if(len(args) < 2):
-    print("System > 質問文を入力してください")
-    quit()
-
-# 引数で引き受けた質問文をセット
-question = args[1]
 
 # インタラクション保存変数
 messageHistory=[
@@ -28,8 +20,7 @@ messageHistory=[
 ]
 
 while True:
-    if(question == ""):
-        question = input("Me > ")
+    question = input("Me > ")
 
     # 質問をインタラクション変数に追加
     messageHistory.append({"role": "user", "content": question})
@@ -39,7 +30,6 @@ while True:
         messages=messageHistory,
         )
     answer = chatInfos["choices"][0]["message"]["content"]
-    question = ""
 
     # 回答をインタラクション変数に追加
     messageHistory.append({"role": "assistant", "content": answer})
